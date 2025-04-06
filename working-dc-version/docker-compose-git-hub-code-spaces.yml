@@ -1,0 +1,12 @@
+version: '3'
+services:
+  code-server:
+    image: codercom/code-server:latest
+    container_name: code-server
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/home/coder/project  # Mount the Codespace workspace directory
+    environment:
+      - PASSWORD=Sairam@30Sri

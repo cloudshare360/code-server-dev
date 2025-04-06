@@ -1,0 +1,89 @@
+Got it! I'll make sure the **workspace name matches the volume name**, so it's easier to identify the container type. Here's your updated `docker-compose.yml`:
+
+```yaml
+version: '3'
+
+services:
+  nodejs:
+    image: node:latest
+    container_name: nodejs_dev
+    volumes:
+      - nodejs_ws:/nodejs_ws
+    tty: true
+
+  java:
+    image: openjdk:latest
+    container_name: java_dev
+    volumes:
+      - java_ws:/java_ws
+    tty: true
+
+  java_springboot:
+    image: openjdk:latest
+    container_name: java_springboot_dev
+    volumes:
+      - java_springboot_ws:/java_springboot_ws
+    tty: true
+    command: ["bash", "-c", "cd /java_springboot_ws && mvn clean install && ./gradlew bootRun"]
+
+  node_express:
+    image: node:latest
+    container_name: node_express_dev
+    volumes:
+      - node_express_ws:/node_express_ws
+    tty: true
+    command: ["bash", "-c", "cd /node_express_ws && npm install && node server.js"]
+
+  node_angular:
+    image: node:latest
+    container_name: node_angular_dev
+    volumes:
+      - node_angular_ws:/node_angular_ws
+    tty: true
+    command: ["bash", "-c", "cd /node_angular_ws && npm install && ng serve --host 0.0.0.0"]
+
+  node_react:
+    image: node:latest
+    container_name: node_react_dev
+    volumes:
+      - node_react_ws:/node_react_ws
+    tty: true
+    command: ["bash", "-c", "cd /node_react_ws && npm install && npm start"]
+
+  python_react:
+    image: python:latest
+    container_name: python_react_dev
+    volumes:
+      - python_react_ws:/python_react_ws
+    tty: true
+    command: ["bash", "-c", "cd /python_react_ws && pip install -r requirements.txt && npm install && npm start"]
+
+  mvn:
+    image: maven:latest
+    container_name: mvn_dev
+    volumes:
+      - mvn_ws:/mvn_ws
+    tty: true
+    command: ["bash", "-c", "cd /mvn_ws && mvn clean install"]
+
+volumes:
+  nodejs_ws:
+  java_ws:
+  java_springboot_ws:
+  node_express_ws:
+  node_angular_ws:
+  node_react_ws:
+  python_react_ws:
+  mvn_ws:
+```
+
+### 🚀 What's Changed?
+- **Workspace name matches the volume name** (`nodejs_ws:/nodejs_ws`, `mvn_ws:/mvn_ws`, etc.).
+- This makes it easy to identify container types based on their mounted paths inside the container.
+
+### How to Run a Specific Environment?
+```bash
+docker-compose up -d java_springboot
+```
+
+This should make your development workflow more streamlined! Let me know if you need further refinements. 🚀

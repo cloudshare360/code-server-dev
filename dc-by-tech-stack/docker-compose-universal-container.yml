@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/universal:latest
+    container_name: universal_dev
+    ports:
+      - "8080:8080"  # Expose a common port
+    volumes:
+      - .:/workspace
+    tty: true
+    environment:
+      - NODE_VERSION=latest
+      - JAVA_VERSION=latest
+      - PYTHON_VERSION=latest
+    command: ["bash", "-c", "cd /workspace && npm install && pip install -r requirements.txt && ./gradlew build && ./run.sh"]

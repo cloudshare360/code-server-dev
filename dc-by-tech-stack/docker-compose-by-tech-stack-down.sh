@@ -1,0 +1,1 @@
+docker-compose -f docker-compose-by-tech-stack.yml down
